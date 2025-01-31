@@ -34,22 +34,18 @@ async def create_user(user: User):
 # Обновление (Update) данных конкретного пользователя
 @app.put("/user/{user_id}/{username}/{age}")
 async def update_user(user: User):
-    try:
-        for edit_user in users:
-            if edit_user.id == user.id:
-                edit_user.username  = user.username
-                edit_user.age = user.age
-                return user
-    except IndexError:
-        raise HTTPException(404, "User was not found")
+    for edit_user in users:
+        if edit_user.id == user.id:
+            edit_user.username  = user.username
+            edit_user.age = user.age
+            return user
+    raise HTTPException(404, "User was not found")
 
 # Удаление (Delete) конкретного пользователя
 @app.delete("/user/{user_id}")
 async def delete_user(user_id: int):
-    try:
-        for i, deleting_user in enumerate(users):
-            if deleting_user.id == user_id:
-                del users[i]
-        return deleting_user
-    except IndexError:
-        raise HTTPException(404, "Message not found")
+    for i, deleting_user in enumerate(users):
+        if deleting_user.id == user_id:
+            del users[i]
+            return deleting_user
+    raise HTTPException(404, "User was not found")
