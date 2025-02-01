@@ -27,7 +27,7 @@ async def get_all_users() -> List[User]:
 # Создание (Create) нового пользователя
 @app.post("/user/{username}/{age}")
 async def create_user(user: User):
-    user.id = len(users) + 1
+    user.id = max((u.id for u in users), default=0) + 1 #По методу 'len(users) + 1' - возможно дублирование id
     users.append(user)
     return user
 
