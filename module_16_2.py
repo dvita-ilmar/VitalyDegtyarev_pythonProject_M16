@@ -5,6 +5,7 @@ coding: utf-8
 Домашнее задание по теме "Валидация данных"
 """
 
+
 from fastapi import FastAPI, Path
 from typing import Annotated
 
